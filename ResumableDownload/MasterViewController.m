@@ -348,7 +348,7 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 
 #pragma mark - Debug Helper Bar Button
 
-- (IBAction)clearData:(id)sender {
+- (IBAction)resetAction:(id)sender {
     [[TDNetworkQueue sharedTDNetworkQueue] cancelAllRequests];
     [self deleteDownloadRootPath];
     [self deleteTempRootPath];

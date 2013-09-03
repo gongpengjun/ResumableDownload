@@ -130,9 +130,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Download List" id="36">
-                        <barButtonItem key="rightBarButtonItem" title="Clear Data" id="vI7-9I-okU">
+                        <barButtonItem key="rightBarButtonItem" title="Reset" id="vI7-9I-okU">
                             <connections>
-                                <action selector="clearData:" destination="12" id="iGT-TS-ACa"/>
+                                <action selector="resetAction:" destination="12" id="X7Q-iU-eNy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -183,7 +183,6 @@
                 <relationship kind="outlet" name="actionImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="bgButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="circularProgressView" candidateClass="DACircularProgressView"/>
-                <relationship kind="outlet" name="progressImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="BTRouteCell" superclassName="UITableViewCell">
@@ -205,7 +204,7 @@
         <class className="MasterViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
             <relationships>
-                <relationship kind="action" name="clearData:"/>
+                <relationship kind="action" name="resetAction:"/>
             </relationships>
         </class>
         <class className="RootViewController" superclassName="UIViewController">
