@@ -47,7 +47,6 @@ NSString* const kBTDownloadViewNotification  = @"kBTDownloadViewNotification";
 - (void)awakeFromNib {
     [super awakeFromNib];
     NSLog(@"%s,%d self:<%@ %p>",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self);
-    [self.bgButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 // lazy loading
@@ -93,7 +92,7 @@ NSString* const kBTDownloadViewNotification  = @"kBTDownloadViewNotification";
     }
 }
 
-- (void)buttonClicked:(id)sender {
+- (IBAction)buttonClicked:(id)sender {
     NSLog(@"%s,%d status: %d",__FUNCTION__,__LINE__,self.status);
     switch (self.status) {
         case BTDownloadNotStart:

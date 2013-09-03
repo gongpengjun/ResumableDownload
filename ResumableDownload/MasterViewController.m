@@ -183,6 +183,13 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 {
     [super viewWillDisappear:animated];
     NSLog(@"%s,%d",__FUNCTION__,__LINE__);
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kBTDownloadStartNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kBTDownloadPauseNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kBTDownloadStopNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kBTDownloadViewNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kBTDownloadFinishedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kBTDownloadFailedNotification object:nil];
 }
 
 #pragma mark - Table View
@@ -214,16 +221,30 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary* objectDict = _objects[indexPath.row];
+    NSString* urlString = [self urlOfObjectDict:objectDict];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if([self downloadStatusOfURL:urlString] == BTDownloadFinished) {
+        [self performSegueWithIdentifier:@"showDetail" sender:nil];
+    } else {
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Haven't downloaded" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        [alertView release];
+    }
+}
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return NO;
+    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSLog(@"%s,%d delete",__FUNCTION__,__LINE__);
+        [self stopDownloadOfflineMapAtIndexPath:indexPath];
         return;
         [_objects removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -238,6 +259,8 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
         [[segue destinationViewController] setDetailItem:[self nameOfObjectDict:objectDict]];
     }
 }
+
+#pragma mark - Download Action Notification
 
 - (void)accsseryButtonNofy:(NSNotification*)notification {
     NSLog(@"%s,%d notification: %@",__FUNCTION__,__LINE__,notification);
@@ -278,6 +301,13 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 
 - (void)stopDownloadOfflineMapAtIndexPath:(NSIndexPath*)indexPath {
     NSLog(@"%s,%d indexPath: %@ ",__FUNCTION__,__LINE__,indexPath);
+    NSDictionary* objectDict = _objects[indexPath.row];
+    NSString* urlString = [self urlOfObjectDict:objectDict];
+    NSLog(@"%s,%d indexPath: %@ urlString: %@",__FUNCTION__,__LINE__,indexPath,urlString);
+    NSString *downloadPath = [self downloadPathOfURL:urlString];
+    NSString *tempPath = [self tempPathOfURL:urlString];
+    NSLog(@"%s,%d tempPath: %@ downloadPath: %@",__FUNCTION__,__LINE__,tempPath,downloadPath);
+    [[TDNetworkQueue sharedTDNetworkQueue] pauseDownload:urlString];
 }
 
 - (void)viewOfflineMapAtIndexPath:(NSIndexPath*)indexPath {
@@ -286,6 +316,7 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
     [self performSegueWithIdentifier:@"showDetail" sender:nil];
 }
 
+#pragma mark - Download Progress Notification
 
 - (void)downloadProcessNofy:(NSNotification*)notification {
     NSLog(@"%s,%d notification: %@",__FUNCTION__,__LINE__,notification);
@@ -303,6 +334,8 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
         cell.status = BTDownloadPaused;
     }
 }
+
+#pragma mark - Debug Helper Bar Button
 
 - (IBAction)clearData:(id)sender {
     [[TDNetworkQueue sharedTDNetworkQueue] cancelAllRequests];

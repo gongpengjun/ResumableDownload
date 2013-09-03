@@ -66,8 +66,7 @@ NSString* const kBTDownloadFailedNotification  = @"kBTDownloadFailedNotification
 
 - (void)cancelAllRequests {
     for (ASIHTTPRequest *request in self.requestArray) {
-        [request setDownloadProgressDelegate:nil];
-        [request cancel];
+        [request clearDelegatesAndCancel];
     }
 }
 
