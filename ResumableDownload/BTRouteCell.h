@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface BTRouteCell : UITableViewCell
-
+@property (retain, nonatomic) IBOutlet UILabel* label;
+@property (retain, nonatomic) NSIndexPath* indexPath;
 @end

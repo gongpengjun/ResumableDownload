@@ -32,11 +32,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     NSLog(@"%s,%d",__FUNCTION__,__LINE__);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     NSLog(@"%s,%d",__FUNCTION__,__LINE__);
 }
 

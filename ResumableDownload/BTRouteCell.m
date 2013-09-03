@@ -7,15 +7,13 @@
 //
 
 #import "BTRouteCell.h"
+#import "BTRouteAccessoryButton.h"
+
+@interface BTRouteCell ()
+@property IBOutlet BTRouteAccessoryButton* accessoryButton;
+@end
 
 @implementation BTRouteCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    NSLog(@"%s,%d self:<%@ %p> style: 0x%X,reuseIdentifier: %@",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self,style,reuseIdentifier);
-    return self;
-}
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -28,6 +26,12 @@
     NSLog(@"%s,%d self:<%@ %p>",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self);
 }
 
+- (void)setIndexPath:(NSIndexPath *)indexPath {
+    [indexPath retain];
+    [_indexPath release];
+    _indexPath = indexPath;
+    self.accessoryButton.indexPath = indexPath;
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
