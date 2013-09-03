@@ -10,6 +10,7 @@
 #import "DetailViewController.h"
 #import "BTRouteCell.h"
 #import "BTRouteAccessoryButton.h"
+#import "TDNetworkQueue.h"
 
 static NSString *test1URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_forbidden_city_route.mbtiles";
 static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_control-room-0.2.0.mbtiles";
@@ -35,27 +36,128 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
+    [super viewDidLoad];
+    
+    [self createDownloadRootPath];
+    [self createTempRootPath];
+    [self refeshObjects];
+}
+
+- (void)refeshObjects {
+    [_objects removeAllObjects];
+    [_objects release];
+    
     NSMutableDictionary* objectDict = nil;
+    BTDownloadStatus status = 0;
     _objects = [[NSMutableArray alloc] init];
     
     objectDict = [NSMutableDictionary dictionaryWithCapacity:2];
     [objectDict setValue:test1URL forKey:@"url"];
-    [objectDict setValue:@(BTDownloadNotStart) forKey:@"state"];
+    status = [self downloadStatusOfURL:test1URL];
+    [objectDict setValue:@(status) forKey:@"state"];
     [_objects addObject:objectDict];
     
     objectDict = [NSMutableDictionary dictionaryWithCapacity:2];
     [objectDict setValue:test2URL forKey:@"url"];
-    [objectDict setValue:@(BTDownloadNotStart) forKey:@"state"];
+    status = [self downloadStatusOfURL:test2URL];
+    [objectDict setValue:@(status) forKey:@"state"];
     
     [_objects addObject:objectDict];
-    
-    NSLog(@"%s,%d _objects: %@",__FUNCTION__,__LINE__,_objects);
+    NSLog(@"%s,%d _objects: %@",__FUNCTION__,__LINE__,_objects);    
+}
+
+- (NSString*)urlOfObjectDict:(NSDictionary*)objectDict {
+    //NSLog(@"%s,%d objectDict: %@",__FUNCTION__,__LINE__,objectDict);
+    return [objectDict valueForKey:@"url"];
 }
 
 - (NSString*)nameOfObjectDict:(NSDictionary*)objectDict {
     //NSLog(@"%s,%d objectDict: %@",__FUNCTION__,__LINE__,objectDict);
     return [[objectDict valueForKey:@"url"] lastPathComponent];
+}
+
+- (BTDownloadStatus)statusOfObjectDict:(NSDictionary*)objectDict {
+    //NSLog(@"%s,%d objectDict: %@",__FUNCTION__,__LINE__,objectDict);
+    return [[objectDict valueForKey:@"state"] unsignedIntegerValue];
+}
+
+- (NSIndexPath*)indexPathOfURL:(NSString*)urlString {
+    for(NSUInteger i = 0; i < _objects.count; i++) {
+        id objectDict = [_objects objectAtIndex:i];
+        if([[objectDict valueForKey:@"url"] isEqualToString:urlString]) {
+            return [NSIndexPath indexPathForRow:i inSection:0];
+        }
+    }
+    return nil;
+}
+
+- (NSString*)tempRootPath {
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/offlinemap/downloading"];
+    NSLog(@"%s,%d path: %@",__FUNCTION__,__LINE__,path);
+    return path;
+}
+
+- (void)createTempRootPath {
+    NSString *path = [self tempRootPath];
+    if(![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+}
+
+- (void)deleteTempRootPath {
+    NSString *path = [self tempRootPath];
+    if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
+    }
+}
+
+- (NSString*)tempPathOfURL:(NSString*)urlString {
+    NSString* nameString = [urlString lastPathComponent];
+    NSString *tempPath = [[self tempRootPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.tmp",nameString]];
+    return tempPath;
+}
+
+- (NSString*)downloadRootPath {
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/offlinemap/downloaded"];
+    NSLog(@"%s,%d path: %@",__FUNCTION__,__LINE__,path);
+    return path;
+}
+
+- (void)createDownloadRootPath {
+    NSString *path = [self downloadRootPath];
+    if(![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+}
+
+- (void)deleteDownloadRootPath {
+    NSString *path = [self downloadRootPath];
+    if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
+    }
+}
+
+- (NSString*)downloadPathOfURL:(NSString*)urlString {
+    NSString* nameString = [urlString lastPathComponent];
+    NSString *downloadPath = [[self downloadRootPath] stringByAppendingPathComponent:nameString];
+    return downloadPath;
+}
+
+- (BTDownloadStatus)downloadStatusOfURL:(NSString*)urlString {
+    // already downloaded
+    BOOL fileExist = [[NSFileManager defaultManager] fileExistsAtPath:[self downloadPathOfURL:urlString]];
+    if(fileExist) {
+        return BTDownloadFinished;
+    }
+    
+    // already start download, but paused
+    BOOL tempExist = [[NSFileManager defaultManager] fileExistsAtPath:[self tempPathOfURL:urlString]];
+    if(tempExist) {
+        return BTDownloadPaused;
+    }
+
+    // not start at all
+    return BTDownloadNotStart;
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,6 +174,9 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accsseryButtonNofy:) name:kBTDownloadPauseNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accsseryButtonNofy:) name:kBTDownloadStopNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accsseryButtonNofy:) name:kBTDownloadViewNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProcessNofy:) name:kBTDownloadFinishedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProcessNofy:) name:kBTDownloadFailedNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -105,6 +210,7 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
     //NSLog(@"%s,%d objectDict: %@",__FUNCTION__,__LINE__,objectDict);
     cell.label.text = [self nameOfObjectDict:objectDict];
     cell.indexPath = indexPath;
+    cell.status = [self statusOfObjectDict:objectDict];
     return cell;
 }
 
@@ -135,16 +241,77 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 
 - (void)accsseryButtonNofy:(NSNotification*)notification {
     NSLog(@"%s,%d notification: %@",__FUNCTION__,__LINE__,notification);
+    NSIndexPath* indexPath = [notification object];
     if([[notification name] isEqualToString:kBTDownloadStartNotification]) {
         NSLog(@"%s,%d start download",__FUNCTION__,__LINE__);
+        [self startDownloadOfflineMapAtIndexPath:indexPath];
     } else if([[notification name] isEqualToString:kBTDownloadPauseNotification]) {
         NSLog(@"%s,%d pause download",__FUNCTION__,__LINE__);
+        [self pauseDownloadOfflineMapAtIndexPath:indexPath];
     } else if([[notification name] isEqualToString:kBTDownloadViewNotification]) {
-        [self.tableView selectRowAtIndexPath:[notification object] animated:NO scrollPosition:UITableViewScrollPositionNone];
-        [self performSegueWithIdentifier:@"showDetail" sender:nil];
+        [self viewOfflineMapAtIndexPath:indexPath];
     } else {
-        // stop
+        [self stopDownloadOfflineMapAtIndexPath:indexPath];
     }
+}
+
+- (void)startDownloadOfflineMapAtIndexPath:(NSIndexPath*)indexPath {
+    NSDictionary* objectDict = _objects[indexPath.row];
+    NSString* urlString = [self urlOfObjectDict:objectDict];
+    NSLog(@"%s,%d indexPath: %@ urlString: %@",__FUNCTION__,__LINE__,indexPath,urlString);
+    NSString *downloadPath = [self downloadPathOfURL:urlString];
+    NSString *tempPath = [self tempPathOfURL:urlString];
+    NSLog(@"%s,%d tempPath: %@ downloadPath: %@",__FUNCTION__,__LINE__,tempPath,downloadPath);
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[TDNetworkQueue sharedTDNetworkQueue] addDownloadRequestInQueue:url withTempPath:tempPath withDownloadPath:downloadPath withProgressView:nil];
+}
+
+- (void)pauseDownloadOfflineMapAtIndexPath:(NSIndexPath*)indexPath {
+    NSDictionary* objectDict = _objects[indexPath.row];
+    NSString* urlString = [self urlOfObjectDict:objectDict];
+    NSLog(@"%s,%d indexPath: %@ urlString: %@",__FUNCTION__,__LINE__,indexPath,urlString);
+    NSString *downloadPath = [self downloadPathOfURL:urlString];
+    NSString *tempPath = [self tempPathOfURL:urlString];
+    NSLog(@"%s,%d tempPath: %@ downloadPath: %@",__FUNCTION__,__LINE__,tempPath,downloadPath);
+    [[TDNetworkQueue sharedTDNetworkQueue] pauseDownload:urlString];
+}
+
+- (void)stopDownloadOfflineMapAtIndexPath:(NSIndexPath*)indexPath {
+    NSLog(@"%s,%d indexPath: %@ ",__FUNCTION__,__LINE__,indexPath);
+}
+
+- (void)viewOfflineMapAtIndexPath:(NSIndexPath*)indexPath {
+    NSLog(@"%s,%d indexPath: %@",__FUNCTION__,__LINE__,indexPath);
+    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [self performSegueWithIdentifier:@"showDetail" sender:nil];
+}
+
+
+- (void)downloadProcessNofy:(NSNotification*)notification {
+    NSLog(@"%s,%d notification: %@",__FUNCTION__,__LINE__,notification);
+    NSString* urlString = [notification object];
+    NSIndexPath* indexPath = [self indexPathOfURL:urlString];
+    BTRouteCell* cell = (BTRouteCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+    NSString *downloadPath = [self downloadPathOfURL:urlString];
+    NSString *tempPath = [self tempPathOfURL:urlString];
+    NSLog(@"%s,%d tempPath: %@ downloadPath: %@",__FUNCTION__,__LINE__,tempPath,downloadPath);
+    if([[notification name] isEqualToString:kBTDownloadFinishedNotification]) {
+        NSLog(@"%s,%d download finished",__FUNCTION__,__LINE__);
+        cell.status = BTDownloadFinished;
+    } else if([[notification name] isEqualToString:kBTDownloadFailedNotification]) {
+        NSLog(@"%s,%d download failed",__FUNCTION__,__LINE__);
+        cell.status = BTDownloadPaused;
+    }
+}
+
+- (IBAction)clearData:(id)sender {
+    [[TDNetworkQueue sharedTDNetworkQueue] cancelAllRequests];
+    [self deleteDownloadRootPath];
+    [self deleteTempRootPath];
+    [self createDownloadRootPath];
+    [self createTempRootPath];
+    [self refeshObjects];
+    [self.tableView reloadData];
 }
 
 @end

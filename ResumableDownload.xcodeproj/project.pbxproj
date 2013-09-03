@@ -13,6 +13,7 @@
 		C40A9BFA17D567500051E8B0 /* round_progress_bar_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C40A9BF517D567500051E8B0 /* round_progress_bar_4@2x.png */; };
 		C40A9BFE17D56BD90051E8B0 /* btn_bg_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C40A9BFC17D56BD90051E8B0 /* btn_bg_normal@2x.png */; };
 		C40A9BFF17D56BD90051E8B0 /* btn_bg_ongoing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C40A9BFD17D56BD90051E8B0 /* btn_bg_ongoing@2x.png */; };
+		C40A9C0417D585C80051E8B0 /* TDNetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C40A9C0317D585C80051E8B0 /* TDNetworkQueue.m */; };
 		C45C7D4617D495A400EAFCAC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45C7D4517D495A400EAFCAC /* UIKit.framework */; };
 		C45C7D4817D495A400EAFCAC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45C7D4717D495A400EAFCAC /* Foundation.framework */; };
 		C45C7D4A17D495A400EAFCAC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45C7D4917D495A400EAFCAC /* CoreGraphics.framework */; };
@@ -54,6 +55,8 @@
 		C40A9BF517D567500051E8B0 /* round_progress_bar_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round_progress_bar_4@2x.png"; sourceTree = "<group>"; };
 		C40A9BFC17D56BD90051E8B0 /* btn_bg_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_bg_normal@2x.png"; sourceTree = "<group>"; };
 		C40A9BFD17D56BD90051E8B0 /* btn_bg_ongoing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_bg_ongoing@2x.png"; sourceTree = "<group>"; };
+		C40A9C0217D585C80051E8B0 /* TDNetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNetworkQueue.h; sourceTree = "<group>"; };
+		C40A9C0317D585C80051E8B0 /* TDNetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNetworkQueue.m; sourceTree = "<group>"; };
 		C45C7D4217D495A400EAFCAC /* ResumableDownload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResumableDownload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C45C7D4517D495A400EAFCAC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C45C7D4717D495A400EAFCAC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -169,6 +172,8 @@
 				C45C7D6C17D4979200EAFCAC /* RootViewController.m */,
 				C45C7D6017D495A400EAFCAC /* MasterViewController.h */,
 				C45C7D6117D495A400EAFCAC /* MasterViewController.m */,
+				C40A9C0217D585C80051E8B0 /* TDNetworkQueue.h */,
+				C40A9C0317D585C80051E8B0 /* TDNetworkQueue.m */,
 				C45C7D7217D49B7700EAFCAC /* BTRouteCell.h */,
 				C45C7D7317D49B7800EAFCAC /* BTRouteCell.m */,
 				C4FACC0F17D4CCF70064A984 /* BTRouteAccessoryButton.h */,
@@ -350,6 +355,7 @@
 				C4FACBF817D4A8040064A984 /* ASINetworkQueue.m in Sources */,
 				C4FACBF917D4A8040064A984 /* Reachability.m in Sources */,
 				C4FACC1117D4CCF70064A984 /* BTRouteAccessoryButton.m in Sources */,
+				C40A9C0417D585C80051E8B0 /* TDNetworkQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

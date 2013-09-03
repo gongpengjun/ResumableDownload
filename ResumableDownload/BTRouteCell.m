@@ -7,7 +7,6 @@
 //
 
 #import "BTRouteCell.h"
-#import "BTRouteAccessoryButton.h"
 
 @interface BTRouteCell ()
 @property IBOutlet BTRouteAccessoryButton* accessoryButton;
@@ -31,6 +30,11 @@
     [_indexPath release];
     _indexPath = indexPath;
     self.accessoryButton.indexPath = indexPath;
+}
+
+- (void)setStatus:(BTDownloadStatus)status {
+    _status = status;
+    self.accessoryButton.status = status;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
