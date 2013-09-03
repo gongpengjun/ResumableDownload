@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C40A9BF717D567500051E8B0 /* round_progress_bar_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C40A9BF217D567500051E8B0 /* round_progress_bar_1@2x.png */; };
-		C40A9BF817D567500051E8B0 /* round_progress_bar_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C40A9BF317D567500051E8B0 /* round_progress_bar_2@2x.png */; };
-		C40A9BF917D567500051E8B0 /* round_progress_bar_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C40A9BF417D567500051E8B0 /* round_progress_bar_3@2x.png */; };
-		C40A9BFA17D567500051E8B0 /* round_progress_bar_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C40A9BF517D567500051E8B0 /* round_progress_bar_4@2x.png */; };
-		C40A9BFE17D56BD90051E8B0 /* btn_bg_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C40A9BFC17D56BD90051E8B0 /* btn_bg_normal@2x.png */; };
-		C40A9BFF17D56BD90051E8B0 /* btn_bg_ongoing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C40A9BFD17D56BD90051E8B0 /* btn_bg_ongoing@2x.png */; };
 		C40A9C0417D585C80051E8B0 /* TDNetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C40A9C0317D585C80051E8B0 /* TDNetworkQueue.m */; };
+		C40A9C0A17D5B9250051E8B0 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C40A9C0917D5B9250051E8B0 /* DACircularProgressView.m */; };
+		C40A9C0C17D5B94A0051E8B0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40A9C0B17D5B94A0051E8B0 /* QuartzCore.framework */; };
+		C40A9C0E17D5C95A0051E8B0 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40A9C0D17D5C95A0051E8B0 /* MainStoryboard.storyboard */; };
 		C45C7D4617D495A400EAFCAC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45C7D4517D495A400EAFCAC /* UIKit.framework */; };
 		C45C7D4817D495A400EAFCAC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45C7D4717D495A400EAFCAC /* Foundation.framework */; };
 		C45C7D4A17D495A400EAFCAC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45C7D4917D495A400EAFCAC /* CoreGraphics.framework */; };
@@ -23,7 +20,6 @@
 		C45C7D5817D495A400EAFCAC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C45C7D5717D495A400EAFCAC /* Default.png */; };
 		C45C7D5A17D495A400EAFCAC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C45C7D5917D495A400EAFCAC /* Default@2x.png */; };
 		C45C7D5C17D495A400EAFCAC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C45C7D5B17D495A400EAFCAC /* Default-568h@2x.png */; };
-		C45C7D5F17D495A400EAFCAC /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C45C7D5D17D495A400EAFCAC /* MainStoryboard.storyboard */; };
 		C45C7D6217D495A400EAFCAC /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C45C7D6117D495A400EAFCAC /* MasterViewController.m */; };
 		C45C7D6517D495A400EAFCAC /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C45C7D6417D495A400EAFCAC /* DetailViewController.m */; };
 		C45C7D6D17D4979200EAFCAC /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C45C7D6C17D4979200EAFCAC /* RootViewController.m */; };
@@ -49,14 +45,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C40A9BF217D567500051E8B0 /* round_progress_bar_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round_progress_bar_1@2x.png"; sourceTree = "<group>"; };
-		C40A9BF317D567500051E8B0 /* round_progress_bar_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round_progress_bar_2@2x.png"; sourceTree = "<group>"; };
-		C40A9BF417D567500051E8B0 /* round_progress_bar_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round_progress_bar_3@2x.png"; sourceTree = "<group>"; };
-		C40A9BF517D567500051E8B0 /* round_progress_bar_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round_progress_bar_4@2x.png"; sourceTree = "<group>"; };
-		C40A9BFC17D56BD90051E8B0 /* btn_bg_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_bg_normal@2x.png"; sourceTree = "<group>"; };
-		C40A9BFD17D56BD90051E8B0 /* btn_bg_ongoing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_bg_ongoing@2x.png"; sourceTree = "<group>"; };
 		C40A9C0217D585C80051E8B0 /* TDNetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNetworkQueue.h; sourceTree = "<group>"; };
 		C40A9C0317D585C80051E8B0 /* TDNetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNetworkQueue.m; sourceTree = "<group>"; };
+		C40A9C0817D5B9250051E8B0 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
+		C40A9C0917D5B9250051E8B0 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
+		C40A9C0B17D5B94A0051E8B0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C40A9C0D17D5C95A0051E8B0 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		C45C7D4217D495A400EAFCAC /* ResumableDownload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResumableDownload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C45C7D4517D495A400EAFCAC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C45C7D4717D495A400EAFCAC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -70,7 +64,6 @@
 		C45C7D5717D495A400EAFCAC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		C45C7D5917D495A400EAFCAC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C45C7D5B17D495A400EAFCAC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		C45C7D5E17D495A400EAFCAC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		C45C7D6017D495A400EAFCAC /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		C45C7D6117D495A400EAFCAC /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		C45C7D6317D495A400EAFCAC /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -118,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C40A9C0C17D5B94A0051E8B0 /* QuartzCore.framework in Frameworks */,
 				C45C7D4617D495A400EAFCAC /* UIKit.framework in Frameworks */,
 				C45C7D4817D495A400EAFCAC /* Foundation.framework in Frameworks */,
 				C45C7D4A17D495A400EAFCAC /* CoreGraphics.framework in Frameworks */,
@@ -131,6 +125,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C40A9C0717D5B9250051E8B0 /* DACircularProgress */ = {
+			isa = PBXGroup;
+			children = (
+				C40A9C0817D5B9250051E8B0 /* DACircularProgressView.h */,
+				C40A9C0917D5B9250051E8B0 /* DACircularProgressView.m */,
+			);
+			path = DACircularProgress;
+			sourceTree = SOURCE_ROOT;
+		};
 		C45C7D3917D495A400EAFCAC = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +157,7 @@
 				C45C7D4517D495A400EAFCAC /* UIKit.framework */,
 				C45C7D4717D495A400EAFCAC /* Foundation.framework */,
 				C45C7D4917D495A400EAFCAC /* CoreGraphics.framework */,
+				C40A9C0B17D5B94A0051E8B0 /* QuartzCore.framework */,
 				C4FACBFA17D4A8A20064A984 /* CFNetwork.framework */,
 				C4FACBFE17D4A9460064A984 /* SystemConfiguration.framework */,
 				C4FACC0017D4A9680064A984 /* MobileCoreServices.framework */,
@@ -167,20 +171,21 @@
 			children = (
 				C45C7D5417D495A400EAFCAC /* AppDelegate.h */,
 				C45C7D5517D495A400EAFCAC /* AppDelegate.m */,
-				C45C7D5D17D495A400EAFCAC /* MainStoryboard.storyboard */,
+				C40A9C0D17D5C95A0051E8B0 /* MainStoryboard.storyboard */,
 				C45C7D6B17D4979200EAFCAC /* RootViewController.h */,
 				C45C7D6C17D4979200EAFCAC /* RootViewController.m */,
 				C45C7D6017D495A400EAFCAC /* MasterViewController.h */,
 				C45C7D6117D495A400EAFCAC /* MasterViewController.m */,
-				C40A9C0217D585C80051E8B0 /* TDNetworkQueue.h */,
-				C40A9C0317D585C80051E8B0 /* TDNetworkQueue.m */,
 				C45C7D7217D49B7700EAFCAC /* BTRouteCell.h */,
 				C45C7D7317D49B7800EAFCAC /* BTRouteCell.m */,
 				C4FACC0F17D4CCF70064A984 /* BTRouteAccessoryButton.h */,
 				C4FACC1017D4CCF70064A984 /* BTRouteAccessoryButton.m */,
+				C40A9C0217D585C80051E8B0 /* TDNetworkQueue.h */,
+				C40A9C0317D585C80051E8B0 /* TDNetworkQueue.m */,
 				C45C7D6317D495A400EAFCAC /* DetailViewController.h */,
 				C45C7D6417D495A400EAFCAC /* DetailViewController.m */,
 				C4FACC0417D4CCB00064A984 /* Icons */,
+				C40A9C0717D5B9250051E8B0 /* DACircularProgress */,
 				C4FACBD617D4A8040064A984 /* ASIHttpRequest */,
 				C45C7D4C17D495A400EAFCAC /* Supporting Files */,
 			);
@@ -249,16 +254,10 @@
 		C4FACC0417D4CCB00064A984 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				C40A9BF217D567500051E8B0 /* round_progress_bar_1@2x.png */,
-				C40A9BF317D567500051E8B0 /* round_progress_bar_2@2x.png */,
-				C40A9BF417D567500051E8B0 /* round_progress_bar_3@2x.png */,
-				C40A9BF517D567500051E8B0 /* round_progress_bar_4@2x.png */,
 				C4FACC0517D4CCB00064A984 /* btn_download@2x.png */,
 				C4FACC0617D4CCB00064A984 /* btn_pause@2x.png */,
 				C4FACC0717D4CCB00064A984 /* btn_start@2x.png */,
 				C4FACC0817D4CCB00064A984 /* btn_view@2x.png */,
-				C40A9BFC17D56BD90051E8B0 /* btn_bg_normal@2x.png */,
-				C40A9BFD17D56BD90051E8B0 /* btn_bg_ongoing@2x.png */,
 			);
 			path = Icons;
 			sourceTree = "<group>";
@@ -318,17 +317,11 @@
 				C45C7D5817D495A400EAFCAC /* Default.png in Resources */,
 				C45C7D5A17D495A400EAFCAC /* Default@2x.png in Resources */,
 				C45C7D5C17D495A400EAFCAC /* Default-568h@2x.png in Resources */,
-				C45C7D5F17D495A400EAFCAC /* MainStoryboard.storyboard in Resources */,
 				C4FACC0917D4CCB00064A984 /* btn_download@2x.png in Resources */,
 				C4FACC0A17D4CCB00064A984 /* btn_pause@2x.png in Resources */,
 				C4FACC0B17D4CCB00064A984 /* btn_start@2x.png in Resources */,
 				C4FACC0C17D4CCB00064A984 /* btn_view@2x.png in Resources */,
-				C40A9BF717D567500051E8B0 /* round_progress_bar_1@2x.png in Resources */,
-				C40A9BF817D567500051E8B0 /* round_progress_bar_2@2x.png in Resources */,
-				C40A9BF917D567500051E8B0 /* round_progress_bar_3@2x.png in Resources */,
-				C40A9BFA17D567500051E8B0 /* round_progress_bar_4@2x.png in Resources */,
-				C40A9BFE17D56BD90051E8B0 /* btn_bg_normal@2x.png in Resources */,
-				C40A9BFF17D56BD90051E8B0 /* btn_bg_ongoing@2x.png in Resources */,
+				C40A9C0E17D5C95A0051E8B0 /* MainStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +349,7 @@
 				C4FACBF917D4A8040064A984 /* Reachability.m in Sources */,
 				C4FACC1117D4CCF70064A984 /* BTRouteAccessoryButton.m in Sources */,
 				C40A9C0417D585C80051E8B0 /* TDNetworkQueue.m in Sources */,
+				C40A9C0A17D5B9250051E8B0 /* DACircularProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,14 +362,6 @@
 				C45C7D4F17D495A400EAFCAC /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		C45C7D5D17D495A400EAFCAC /* MainStoryboard.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C45C7D5E17D495A400EAFCAC /* en */,
-			);
-			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BTRouteAccessoryButton.h"
+#import "DACircularProgressView.h"
 
 @interface BTRouteCell : UITableViewCell
 @property (retain, nonatomic) IBOutlet UILabel* label;
 @property (retain, nonatomic) NSIndexPath* indexPath;
 @property (assign, nonatomic) BTDownloadStatus status;
+@property (assign, nonatomic) CGFloat progress;
 @end

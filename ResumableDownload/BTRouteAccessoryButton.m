@@ -7,6 +7,7 @@
 //
 
 #import "BTRouteAccessoryButton.h"
+#import "DACircularProgressView.h"
 
 NSString* const kBTDownloadStartNotification = @"kBTDownloadStartNotification";
 NSString* const kBTDownloadPauseNotification = @"kBTDownloadPauseNotification";
@@ -15,15 +16,13 @@ NSString* const kBTDownloadViewNotification  = @"kBTDownloadViewNotification";
 
 @interface BTRouteAccessoryButton ()
 @property IBOutlet UIButton* bgButton;
-@property IBOutlet UIImageView* progressImageView;
+@property IBOutlet DACircularProgressView* circularProgressView;
 @property IBOutlet UIImageView* actionImageView;
-@property (nonatomic, retain) NSArray* animationImages;
 @end
 
 @implementation BTRouteAccessoryButton
 
 - (void)dealloc {
-    [_animationImages release];
     [super dealloc];
 }
 
@@ -46,17 +45,15 @@ NSString* const kBTDownloadViewNotification  = @"kBTDownloadViewNotification";
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    NSLog(@"%s,%d self:<%@ %p>",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self);
+    //NSLog(@"%s,%d self:<%@ %p>",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self);
+    [self performSelector:@selector(configureCircularProgressView) withObject:nil afterDelay:0];
 }
 
-// lazy loading
-- (NSArray*)animationImages {
-    if(_animationImages) return _animationImages;
-    _animationImages = [[NSArray arrayWithObjects:[UIImage imageNamed:@"round_progress_bar_1"],
-                       [UIImage imageNamed:@"round_progress_bar_2"],
-                       [UIImage imageNamed:@"round_progress_bar_3"],
-                       [UIImage imageNamed:@"round_progress_bar_4"],nil] retain];
-    return _animationImages;
+- (void)configureCircularProgressView {
+    self.circularProgressView.trackTintColor = [UIColor colorWithRed:231/255.0 green:231/255.0 blue:231/255.0 alpha:1.0];
+    self.circularProgressView.progressTintColor = [UIColor colorWithRed:90/255.0 green:203/255.0 blue:218/255.0 alpha:1.0];
+    self.circularProgressView.thicknessRatio = 0.2f;
+    self.circularProgressView.progress = 0.0f;
 }
 
 - (void)setStatus:(BTDownloadStatus)status {
@@ -64,32 +61,25 @@ NSString* const kBTDownloadViewNotification  = @"kBTDownloadViewNotification";
     switch (_status) {
         default:
         case BTDownloadNotStart:
-            [self.progressImageView stopAnimating];
-            self.progressImageView.image = [UIImage imageNamed:@"btn_bg_normal"];
-            self.progressImageView.animationImages = nil;
+            self.circularProgressView.progress = 0.0f;
             self.actionImageView.image = [UIImage imageNamed:@"btn_download"];
             break;
         case BTDownloading:
-            self.progressImageView.image = [UIImage imageNamed:@"btn_bg_ongoing"];
-            self.progressImageView.animationImages = self.animationImages;
-            self.progressImageView.animationDuration = 1.5;
-            self.progressImageView.animationRepeatCount = 0;
-            [self.progressImageView startAnimating];
             self.actionImageView.image = [UIImage imageNamed:@"btn_pause"];
             break;
         case BTDownloadPaused:
-            [self.progressImageView stopAnimating];
-            self.progressImageView.image = [UIImage imageNamed:@"btn_bg_ongoing"];
-            self.progressImageView.animationImages = nil;
             self.actionImageView.image = [UIImage imageNamed:@"btn_start"];
             break;
         case BTDownloadFinished:
-            [self.progressImageView stopAnimating];
-            self.progressImageView.image = [UIImage imageNamed:@"btn_bg_normal"];
-            self.progressImageView.animationImages = nil;
+            self.circularProgressView.progress = 0.0f;
             self.actionImageView.image = [UIImage imageNamed:@"btn_view"];
             break;
     }
+}
+
+- (void)setProgress:(CGFloat)progress {
+    _progress = progress;
+    self.circularProgressView.progress = progress;
 }
 
 - (IBAction)buttonClicked:(id)sender {
@@ -109,14 +99,13 @@ NSString* const kBTDownloadViewNotification  = @"kBTDownloadViewNotification";
             break;
         case BTDownloadFinished:
             // do notthing
-            NSLog(@"%s,%d go to view page",__FUNCTION__,__LINE__);
             [[NSNotificationCenter defaultCenter] postNotificationName:kBTDownloadViewNotification object:self.indexPath];
             break;
             
         default:
             break;
     }
-    NSLog(@"%s,%d status: %d",__FUNCTION__,__LINE__,self.status);
+    //NSLog(@"%s,%d status: %d",__FUNCTION__,__LINE__,self.status);
 }
 
 @end

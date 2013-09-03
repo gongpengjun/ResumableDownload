@@ -25,7 +25,7 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    NSLog(@"%s,%d self:<%@ %p>",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self);
+    //NSLog(@"%s,%d self:<%@ %p>",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self);
 }
 
 - (void)dealloc
@@ -96,7 +96,7 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 
 - (NSString*)tempRootPath {
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/offlinemap/downloading"];
-    NSLog(@"%s,%d path: %@",__FUNCTION__,__LINE__,path);
+    //NSLog(@"%s,%d path: %@",__FUNCTION__,__LINE__,path);
     return path;
 }
 
@@ -122,7 +122,7 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 
 - (NSString*)downloadRootPath {
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/offlinemap/downloaded"];
-    NSLog(@"%s,%d path: %@",__FUNCTION__,__LINE__,path);
+    //NSLog(@"%s,%d path: %@",__FUNCTION__,__LINE__,path);
     return path;
 }
 
@@ -266,13 +266,13 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 #pragma mark - Download Action Notification
 
 - (void)accsseryButtonNofy:(NSNotification*)notification {
-    NSLog(@"%s,%d notification: %@",__FUNCTION__,__LINE__,notification);
+    NSLog(@"%s,%d notification: %@",__FUNCTION__,__LINE__,[notification name]);
     NSIndexPath* indexPath = [notification object];
     if([[notification name] isEqualToString:kBTDownloadStartNotification]) {
-        NSLog(@"%s,%d start download",__FUNCTION__,__LINE__);
+        //NSLog(@"%s,%d start download",__FUNCTION__,__LINE__);
         [self startDownloadOfflineMapAtIndexPath:indexPath];
     } else if([[notification name] isEqualToString:kBTDownloadPauseNotification]) {
-        NSLog(@"%s,%d pause download",__FUNCTION__,__LINE__);
+        //NSLog(@"%s,%d pause download",__FUNCTION__,__LINE__);
         [self pauseDownloadOfflineMapAtIndexPath:indexPath];
     } else if([[notification name] isEqualToString:kBTDownloadViewNotification]) {
         [self viewOfflineMapAtIndexPath:indexPath];
@@ -284,32 +284,38 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 - (void)startDownloadOfflineMapAtIndexPath:(NSIndexPath*)indexPath {
     NSDictionary* objectDict = _objects[indexPath.row];
     NSString* urlString = [self urlOfObjectDict:objectDict];
-    NSLog(@"%s,%d indexPath: %@ urlString: %@",__FUNCTION__,__LINE__,indexPath,urlString);
+    BTRouteCell* cell = (BTRouteCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+    NSLog(@"%s,%d indexPath: %@",__FUNCTION__,__LINE__,indexPath);
+//    NSLog(@"%s,%d urlString: %@",__FUNCTION__,__LINE__,urlString);
     NSString *downloadPath = [self downloadPathOfURL:urlString];
     NSString *tempPath = [self tempPathOfURL:urlString];
-    NSLog(@"%s,%d tempPath: %@ downloadPath: %@",__FUNCTION__,__LINE__,tempPath,downloadPath);
+    NSLog(@"%s,%d tempPath: %@",__FUNCTION__,__LINE__,tempPath);
+    NSLog(@"%s,%d downloadPath: %@",__FUNCTION__,__LINE__,downloadPath);
     NSURL *url = [NSURL URLWithString:urlString];
-    [[TDNetworkQueue sharedTDNetworkQueue] addDownloadRequestInQueue:url withTempPath:tempPath withDownloadPath:downloadPath withProgressView:nil];
+    [[TDNetworkQueue sharedTDNetworkQueue] addDownloadRequestInQueue:url withTempPath:tempPath withDownloadPath:downloadPath withProgressView:(UIProgressView*)cell];
 }
 
 - (void)pauseDownloadOfflineMapAtIndexPath:(NSIndexPath*)indexPath {
     NSDictionary* objectDict = _objects[indexPath.row];
     NSString* urlString = [self urlOfObjectDict:objectDict];
-    NSLog(@"%s,%d indexPath: %@ urlString: %@",__FUNCTION__,__LINE__,indexPath,urlString);
-    NSString *downloadPath = [self downloadPathOfURL:urlString];
-    NSString *tempPath = [self tempPathOfURL:urlString];
-    NSLog(@"%s,%d tempPath: %@ downloadPath: %@",__FUNCTION__,__LINE__,tempPath,downloadPath);
+    NSLog(@"%s,%d indexPath: %@",__FUNCTION__,__LINE__,indexPath);
+//    NSLog(@"%s,%d urlString: %@",__FUNCTION__,__LINE__,urlString);
+//    NSString *downloadPath = [self downloadPathOfURL:urlString];
+//    NSString *tempPath = [self tempPathOfURL:urlString];
+//    NSLog(@"%s,%d tempPath: %@",__FUNCTION__,__LINE__,tempPath);
+//    NSLog(@"%s,%d downloadPath: %@",__FUNCTION__,__LINE__,downloadPath);
     [[TDNetworkQueue sharedTDNetworkQueue] pauseDownload:urlString];
 }
 
 - (void)stopDownloadOfflineMapAtIndexPath:(NSIndexPath*)indexPath {
-    NSLog(@"%s,%d indexPath: %@ ",__FUNCTION__,__LINE__,indexPath);
     NSDictionary* objectDict = _objects[indexPath.row];
     NSString* urlString = [self urlOfObjectDict:objectDict];
-    NSLog(@"%s,%d indexPath: %@ urlString: %@",__FUNCTION__,__LINE__,indexPath,urlString);
-    NSString *downloadPath = [self downloadPathOfURL:urlString];
-    NSString *tempPath = [self tempPathOfURL:urlString];
-    NSLog(@"%s,%d tempPath: %@ downloadPath: %@",__FUNCTION__,__LINE__,tempPath,downloadPath);
+    NSLog(@"%s,%d indexPath: %@",__FUNCTION__,__LINE__,indexPath);
+//    NSLog(@"%s,%d urlString: %@",__FUNCTION__,__LINE__,urlString);
+//    NSString *downloadPath = [self downloadPathOfURL:urlString];
+//    NSString *tempPath = [self tempPathOfURL:urlString];
+//    NSLog(@"%s,%d tempPath: %@",__FUNCTION__,__LINE__,tempPath);
+//    NSLog(@"%s,%d downloadPath: %@",__FUNCTION__,__LINE__,downloadPath);
     [[TDNetworkQueue sharedTDNetworkQueue] pauseDownload:urlString];
 }
 
@@ -322,15 +328,17 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 #pragma mark - Download Progress Notification
 
 - (void)downloadProcessNofy:(NSNotification*)notification {
-    NSLog(@"%s,%d notification: %@",__FUNCTION__,__LINE__,notification);
+    NSLog(@"%s,%d notification: %@",__FUNCTION__,__LINE__,[notification name]);
     NSString* urlString = [notification object];
     NSIndexPath* indexPath = [self indexPathOfURL:urlString];
     BTRouteCell* cell = (BTRouteCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-    NSString *downloadPath = [self downloadPathOfURL:urlString];
-    NSString *tempPath = [self tempPathOfURL:urlString];
-    NSLog(@"%s,%d tempPath: %@ downloadPath: %@",__FUNCTION__,__LINE__,tempPath,downloadPath);
+//    NSString *downloadPath = [self downloadPathOfURL:urlString];
+//    NSString *tempPath = [self tempPathOfURL:urlString];
+//    NSLog(@"%s,%d tempPath: %@",__FUNCTION__,__LINE__,tempPath);
+//    NSLog(@"%s,%d downloadPath: %@",__FUNCTION__,__LINE__,downloadPath);
     if([[notification name] isEqualToString:kBTDownloadFinishedNotification]) {
         NSLog(@"%s,%d download finished",__FUNCTION__,__LINE__);
+        cell.progress = 1.0;
         cell.status = BTDownloadFinished;
     } else if([[notification name] isEqualToString:kBTDownloadFailedNotification]) {
         NSLog(@"%s,%d download failed",__FUNCTION__,__LINE__);

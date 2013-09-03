@@ -24,5 +24,6 @@ typedef enum BTDownloadStatus {
 
 @property (nonatomic, assign) BTDownloadStatus status;
 @property (retain, nonatomic) NSIndexPath* indexPath;
+@property (assign, nonatomic) CGFloat progress;
 
 @end

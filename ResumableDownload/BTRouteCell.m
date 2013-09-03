@@ -16,13 +16,13 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
-    NSLog(@"%s,%d self:<%@ %p> decoder: %@",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self,aDecoder);
+    //NSLog(@"%s,%d self:<%@ %p> decoder: %@",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self,aDecoder);
     return self;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    NSLog(@"%s,%d self:<%@ %p>",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self);
+    //NSLog(@"%s,%d self:<%@ %p>",__FUNCTION__,__LINE__,NSStringFromClass([self class]),self);
 }
 
 - (void)setIndexPath:(NSIndexPath *)indexPath {
@@ -35,6 +35,11 @@
 - (void)setStatus:(BTDownloadStatus)status {
     _status = status;
     self.accessoryButton.status = status;
+}
+
+- (void)setProgress:(CGFloat)progress {
+    _progress = progress;
+    self.accessoryButton.progress = progress;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
