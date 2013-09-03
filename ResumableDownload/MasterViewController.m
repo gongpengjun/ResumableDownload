@@ -36,8 +36,11 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
+    [super viewDidLoad];    
+    UIBarButtonItem *backButton = [[[UIBarButtonItem alloc] init] autorelease];
+    backButton.title = @"Back";
+    self.navigationItem.backBarButtonItem = backButton;
+
     [self createDownloadRootPath];
     [self createTempRootPath];
     [self refeshObjects];
@@ -176,7 +179,7 @@ static NSString *test2URL = @"http://breadtrip-offlinemap.qiniudn.com/tiles_cont
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accsseryButtonNofy:) name:kBTDownloadViewNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProcessNofy:) name:kBTDownloadFinishedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProcessNofy:) name:kBTDownloadFailedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadProcessNofy:) name:kBTDownloadFailedNotification object:nil];    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

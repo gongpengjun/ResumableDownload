@@ -19,7 +19,7 @@
             </objects>
             <point key="canvasLocation" x="-1" y="64"/>
         </scene>
-        <!--Root View Controller - Root-->
+        <!--Root View Controller - Resumable Download-->
         <scene sceneID="ovh-eV-2h1">
             <objects>
                 <viewController id="eRP-zW-fc4" customClass="RootViewController" sceneMemberID="viewController">
@@ -44,7 +44,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Root" id="qav-gr-03k"/>
+                    <navigationItem key="navigationItem" title="Resumable Download" id="qav-gr-03k"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dE4-4t-hcG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -121,7 +121,7 @@
                             <outlet property="delegate" destination="12" id="15"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="36">
+                    <navigationItem key="navigationItem" title="Download List" id="36">
                         <barButtonItem key="rightBarButtonItem" title="Clear Data" id="vI7-9I-okU">
                             <connections>
                                 <action selector="clearData:" destination="12" id="iGT-TS-ACa"/>

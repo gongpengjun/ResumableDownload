@@ -28,6 +28,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     NSLog(@"%s,%d",__FUNCTION__,__LINE__);
+    
+    UIBarButtonItem *backButton = [[[UIBarButtonItem alloc] init] autorelease];
+    backButton.title = @"Back";
+    self.navigationItem.backBarButtonItem = backButton;
 }
 
 - (void)viewWillAppear:(BOOL)animated
